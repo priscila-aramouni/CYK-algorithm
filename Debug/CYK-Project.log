@@ -1,5 +1,0 @@
-﻿  main.cpp
-C:\Users\hikmat\OneDrive\Documents\courses\csc311\projects\CYK\main.cpp(39,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\hikmat\OneDrive\Documents\courses\csc311\projects\CYK\main.cpp(46,19): warning C4018: '<=': signed/unsigned mismatch
-C:\Users\hikmat\OneDrive\Documents\courses\csc311\projects\CYK\main.cpp(47,21): warning C4018: '<': signed/unsigned mismatch
-  CYK-Project.vcxproj -> C:\Users\hikmat\OneDrive\Documents\courses\csc311\projects\CYK\Debug\CYK-Project.exe

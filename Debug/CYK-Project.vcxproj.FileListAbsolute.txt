@@ -1,2 +1,0 @@
-C:\Users\hikmat\OneDrive\Documents\courses\csc311\projects\CYK\Debug\CYK-Project.exe
-C:\Users\hikmat\OneDrive\Documents\courses\csc311\projects\CYK\Debug\CYK-Project.pdb
