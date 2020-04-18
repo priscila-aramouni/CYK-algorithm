@@ -17,14 +17,22 @@ public:
 			*/
 		p = new T[n*m]();
 	}
+
 	T* operator[](int i) {
 		return &p[i*cols];
 	}
+
 	int getRows() {
 		return rows;
 	}
+
 	int getCols() {
 		return cols;
+	}
+
+	void setValue(set<string> ss, int index) {
+		p[index] = ss;
+		index++;
 	}
 };
 

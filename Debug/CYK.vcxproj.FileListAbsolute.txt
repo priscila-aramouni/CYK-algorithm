@@ -1,0 +1,2 @@
+C:\Users\Prescila\Documents\GitHub\CSC-311\Debug\CYK.exe
+C:\Users\Prescila\Documents\GitHub\CSC-311\Debug\CYK.pdb
