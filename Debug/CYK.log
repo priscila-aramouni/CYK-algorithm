@@ -1,4 +1,4 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CYK-Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-C:\Users\Prescila\Documents\GitHub\CSC-311\main.cpp(49,6): warning C4101: 'np': unreferenced local variable
-  CYK.vcxproj -> C:\Users\Prescila\Documents\GitHub\CSC-311\Debug\CYK.exe
+C:\Users\Prescila\Documents\GitHub\CSC-311\main.cpp(35,36): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Prescila\Documents\GitHub\CSC-311\main.cpp(28): error C4716: 'search': must return a value

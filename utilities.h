@@ -29,24 +29,26 @@ public:
 	int getCols() {
 		return cols;
 	}
-
-	void setValue(set<string> ss, int index) {
-		p[index] = ss;
-		index++;
-	}
 };
 
 /* return the union of two sets
    we cannot call it union since
    it is a c++ keyword. Union
-   doesn't look good either
-   */
+   doesn't look good either */
 template <typename T>
-set<T>& merge(set<T>& ls,set<T>& rs);
+set<T>& merge(set<T>& ls, set<T>& rs) {
+
+}
 
 /* returns the cartesian 
-	product of two sets
-	*/
+	product of two sets */
 template <typename T>
-set<T> cartesian(set<T>& s1,
-	set<T>& s2);
+set<T> cartesian(set<T>& s1, set<T>& s2) {
+	set<T> products;
+	for (T s1_variable : s1) {
+		for (T s2_variable : s2) {
+			products.insert(s1_variable + s2_variable);
+		}
+	}
+	return products;
+}
