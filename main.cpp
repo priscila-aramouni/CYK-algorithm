@@ -7,10 +7,11 @@ using namespace std;
 
 
 vector<pair<string, string>> productions;
+set<string> emptySet{ "Ø" };
 
+//given a symbol  "symbol" returns a set 
+//	of all symbols that can produce it
 set<string> search(string terminal) {
-	/* If the right side of the production matches the terminal,
-		add the left side of the production (variable) to a set */
 	set<string> leftProd;
 	vector <pair<string, string>>::iterator productionsItr;
 
@@ -22,8 +23,8 @@ set<string> search(string terminal) {
 	return leftProd;
 }
 
-/* generalization of the above returns a set 
-	of symbols that can produce a set of symbols */
+//Generalization of the above: returns a set 
+//	of symbols that can produce a set of symbols
 set<string> search(set<string> cartesianProd) {
 	set<string> leftProd;
 	vector <pair<string, string>>::iterator productionsItr;
@@ -56,37 +57,63 @@ set<pair<string,string>> split(string s) {
 }
 
 void solve(Matrix<set<string>>& m, string input) {
-	/* Filling up the 1st row */
-	set<string> leftPr;
+	//Filling up the 1st row
+	set<string> leftProd;
 	string::iterator inputItr = input.begin();
 	for (int j = 0; j < m.getCols(); j++) {
-		leftPr= search({ *inputItr });
-		m[0][j] = leftPr;
+		leftProd = search({ *inputItr });
+
+		if (!leftProd.empty()) {
+			m[0][j] = leftProd;
+		}
+		else {
+			m[0][j] = emptySet;
+		}
 		inputItr++;
 	}
 
-	/* Filling up the rest of the rows */
+	//Filling up the rest of the rows 
 	set<pair<string,string>> substrCombinations;
-	set<string> leftProductionSet, rightProductionSet, cartesianProducts;
+	set<string> productionSet_Y, productionSet_Z, productionSet_YZ, fullProductionSet, cartesianProduct;
 	string inputSubstr;
 
 	int startingPosition = 0;
-	int matrixCol = m.getCols() - 1;	
+	int matrixCol = m.getCols() - 1; 	
 	
 	for (int row = 1; row < m.getRows(); row++) {	
 		for (int col = 0; col < matrixCol; col++) {
+
+			//Create a substr out of "input" based on the current row and col
 			inputSubstr = input.substr(startingPosition, row + 1); 
 			startingPosition++;		
 
+			//Split the obtained substr into combinations of substrings (Y_[ik]Z_[k+1j])
 			substrCombinations = split(inputSubstr);
-			for (pair<string, string> pair : substrCombinations) {
-				leftProductionSet = m[pair.first.length() -1][input.find(pair.first)];
-				rightProductionSet = m[pair.second.length() - 1][input.find(pair.second)];
 
-				cartesianProducts = cartesian(leftProductionSet, rightProductionSet);
-				search(cartesianProducts);
+			//For every Y and Z, look for the set of variables (productionSet) that produces 
+			//	these substr (Y & Z), then find the cartesian product of these 2 sets
+			for (pair<string, string> YZ : substrCombinations) {
+				productionSet_Y = m[YZ.first.length() -1][input.find(YZ.first)];
+				productionSet_Z = m[YZ.second.length() - 1][input.find(YZ.second)];
+				cartesianProduct = cartesian(productionSet_Y, productionSet_Z);
+				
+				//Search the production rules for variables that produce the cartesian product set
+				productionSet_YZ = search(cartesianProduct);
+
+				//Merge the production sets resulting from the different Y_[ik]Z_[k+1j]
+				fullProductionSet = merge(fullProductionSet, productionSet_YZ);
+			}
+
+			if (!fullProductionSet.empty()) {
+				m[row][col] = fullProductionSet;
+			}
+			else {
+				m[row][col] = emptySet;
 			}
 		}
+		//When a new row is being filled, reset the starting position. Also, 
+		//	decrease the amount of columns to be filled (e.g. in a 3x3
+		//	matrix, row 0 fills col 0, 1, and 2, but row 1 only fills col 0 and 1)
 		startingPosition = 0;
 		matrixCol--;
 	}

@@ -37,7 +37,10 @@ public:
    doesn't look good either */
 template <typename T>
 set<T>& merge(set<T>& ls, set<T>& rs) {
+	set<T> newSet(ls);
+	newSet.insert(rs.begin(), rs.end());
 
+	return newSet;
 }
 
 /* returns the cartesian 
