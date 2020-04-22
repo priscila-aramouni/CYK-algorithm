@@ -31,23 +31,27 @@ public:
 	}
 };
 
-/* return the union of two sets
-   we cannot call it union since
-   it is a c++ keyword. Union
-   doesn't look good either */
+//Return the union of two sets
 template <typename T>
-set<T>& merge(set<T>& ls, set<T>& rs) {
-	set<T> newSet(ls);
-	newSet.insert(rs.begin(), rs.end());
+set<T> merge(set<T>& ls, set<T>& rs) {
+	set<T> newSet (ls);
 
+	for (T t : rs) {
+		newSet.insert(t);
+	}
 	return newSet;
 }
 
-/* returns the cartesian 
-	product of two sets */
+//Returns the cartesian 
+//	product of two sets
 template <typename T>
 set<T> cartesian(set<T>& s1, set<T>& s2) {
 	set<T> products;
+
+	if (s1.find("*") != s1.end() || s2.find("*") != s2.end()) {
+		return emptySet;
+	}
+
 	for (T s1_variable : s1) {
 		for (T s2_variable : s2) {
 			products.insert(s1_variable + s2_variable);
